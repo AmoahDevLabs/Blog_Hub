@@ -1,0 +1,19 @@
+# This snippet is a function base view
+
+def post_list(request):
+    page_list = Post.published.all()
+    paginator = Paginator(page_list, 3)  # 3 Posts per page
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer deliver the first page
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        posts = paginator.page(paginator.num_pages)
+    return render(request, 'blog/post/list.html',
+                  {'page': page,
+                   'posts': posts})
+
+{% include 'blog/pagination.html' with page=posts %}
