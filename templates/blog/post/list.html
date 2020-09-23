@@ -8,6 +8,7 @@
             <a href="{{ post.get_absolute_url }}">
                 {{ post.title }}
             </a>
+            <p class="tags">Tags: {{ post.tags.all|join:"," }}</p>
         </h2>
 
         <p class="date">
@@ -16,5 +17,5 @@
         {{ post.body|truncatewords:30|linebreaks }}
     {% endfor %}
 
-    {% include 'blog/pagination.html' with page=page_obj %}
+    {% include 'blog/pagination.html' with page=posts %}
 {% endblock %}
