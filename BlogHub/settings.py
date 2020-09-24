@@ -36,6 +36,10 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 
+# Sites and Sitemaps config
+SITE_ID = 1
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,6 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+    'django.contrib.postgres',
     'blog.apps.BlogConfig',
     'taggit',
 ]
@@ -84,10 +91,23 @@ WSGI_APPLICATION = 'BlogHub.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
+# PostgresSQL DB Config
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django_db',
+        'USER': 'djadmin',
+        'PASSWORD': 'passcode',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
