@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+{% block title %}Create A New Blog Post{% endblock %}
+{% block content %}
+    {% if submitted %}
+     <h1>New Post added.</h1>
+     <p class="success-post">Your post has been submitted successfully. Thank you!</p>
+        <br>
+        <hr>
+        <p>View the post or go back to previous posts.</p><br>
+        <a class="btn btn-outline-secondary" href="{% url 'blog:post_list' %}">Previous post</a>
+        <a class="btn btn-outline-info" href="{% url 'blog:post_detail' post.id %}">View post</a>
+    {% else %}
+        <h1>Add New Post</h1>
+        <form method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+                {{ form.as_table }}
+        </form>
+        <input type="submit" value="Add Post">
+    {% endif %}
+{% endblock %}

@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
@@ -6,7 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, \
 from taggit.models import Tag
 from django.db.models import Count
 from .models import Post, Comment
-from .forms import EmailPostForm, CommentForm, SearchForm
+from .forms import PostForm, EmailPostForm, CommentForm, SearchForm
 
 
 def post_list(request, tag_slug=None):
@@ -30,6 +31,27 @@ def post_list(request, tag_slug=None):
                   {'page': page,
                    'posts': posts,
                    'tag': tag})
+
+
+def post_req(request):
+    submitted = False
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            posts = form.save(commit=False)
+            try:
+                post.author = request.user
+            except Exception:
+                pass
+            posts.save()
+            return HttpResponseRedirect('/post_add/?submitted=True')
+    else:
+        form = PostForm
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'blog/post/add_post.html',
+                  {'form': form,
+                   'submitted': submitted})
 
 
 def post_detail(request, year, month, day, post):
@@ -100,18 +122,18 @@ def post_search(request):
         form = SearchForm(request.GET)
         if form.is_valid():
             query = form.cleaned_data['query']
-            # search_vector = SearchVector('title', weight='A') + \
-            #                 SearchVector('body', weight='B')
-            # search_query = SearchQuery(query)
-            # results = Post.published.annotate(
-            #     search=search_vector, rank=SearchRank(
-            #         search_vector, search_query)
-            # ).filter(rank__gte=0.3).order_by('-rank')
+            search_vector = SearchVector('title', weight='A') + \
+                            SearchVector('body', weight='B')
+            search_query = SearchQuery(query)
+            results = Post.published.annotate(
+                search=search_vector, rank=SearchRank(
+                    search_vector, search_query)
+            ).filter(rank__gte=0.3).order_by('-rank')
 
             # Search based similar words
-            results = Post.published.annotate(
-                similarity=TrigramSimilarity('title', query),
-            ).filter(similarity__gt=0.1).order_by('-similarity')
+            # results = Post.published.annotate(
+            #     similarity=TrigramSimilarity('title', query),
+            # ).filter(similarity__gt=0.1).order_by('-similarity')
     return render(request, 'blog/post/search.html',
                   {'form': form,
                    'query': query,

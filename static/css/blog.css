@@ -90,3 +90,15 @@ input[type=submit] {
     font-size:12px;
     color:#666;
 }
+
+#footer {
+    text-align: center;
+    font-size: 0.8em;
+    margin-top: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #21618c;
+    border-top: thin solid #21618c;
+    clear: both;
+    color: #969696;
+}
