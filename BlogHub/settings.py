@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
+    'crispy_forms',
     'taggit',
 ]
 
