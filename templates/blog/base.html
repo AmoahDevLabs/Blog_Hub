@@ -17,41 +17,47 @@
     <body>
         {% include 'blog/nav.html' %}
         <br>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
+
+        <main role="main" class="container">
+            <di class="row">
+                <div class="col-md-8">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+
+                    {% endif %}
+                    {% block content %}
+
+                    {% endblock %}
                 </div>
-            {% endfor %}
+                <div id="sidebar">
+                    <h2>Blog Hub</h2>
+                    <p>This blog has a total of {% total_posts %} posts so far.</p>
+                    <h3>Latest posts</h3>
+                    {% show_latest_posts 3 %}
 
-        {% endif %}
-        <div id="content">
-            {% block content %}
+                    <h3>Most Commented posts</h3>
+                    {% get_most_commented_posts as most_commented_posts %}
+                    <ul>
+                        {% for post in most_commented_posts %}
+                            <li>
+                                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
 
-            {% endblock %}
-        </div>
+                    {# RSS Feed #}
+                    <p>
+                        <a href="{% url 'blog:post_feed' %}">Subscribe to the RSS Feed</a>
+                    </p>
+                </div>
+            </di>
+        </main>
 
-        <div id="sidebar">
-            <h2>Blog Hub</h2>
-            <p>This blog has a total of {% total_posts %} posts so far.</p>
-            <h3>Latest posts</h3>
-            {% show_latest_posts 3 %}
 
-            <h3>Most Commented posts</h3>
-            {% get_most_commented_posts as most_commented_posts %}
-            <ul>
-                {% for post in most_commented_posts %}
-                    <li>
-                        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-
-            {# RSS Feed #}
-            <p>
-                <a href="{% url 'blog:post_feed' %}">Subscribe to the RSS Feed</a>
-            </p>
-        </div>
 
         <footer class="py-3 bg-grey">
             <p id="footer" class="m-0 text-white text-center ">Copyright &copy; 2020 Blog Hub</p>
