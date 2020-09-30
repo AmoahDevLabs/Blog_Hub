@@ -38,12 +38,12 @@ def post_req(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            posts = form.save(commit=False)
+            post = form.save(commit=False)
             try:
                 post.author = request.user
             except Exception:
                 pass
-            posts.save()
+            post.save()
             return HttpResponseRedirect('/post_add/?submitted=True')
     else:
         form = PostForm
@@ -123,7 +123,7 @@ def post_search(request):
         if form.is_valid():
             query = form.cleaned_data['query']
             search_vector = SearchVector('title', weight='A') + \
-                            SearchVector('body', weight='B')
+                            SearchVector('body', weight='A')
             search_query = SearchQuery(query)
             results = Post.published.annotate(
                 search=search_vector, rank=SearchRank(

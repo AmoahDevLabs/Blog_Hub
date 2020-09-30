@@ -10,8 +10,9 @@ urlpatterns = [
     # Post views
     path('', views.post_list, name='post_list'),
     # path('', PostListView.as_view(), name='post_list'),
-    path('add_post/', views.post_req, name='add_post'),
-    path('<int:year>/<int:month>/<int:day>/<slug:post>/', views.post_detail, name='post_detail'),
+    path('post_add/', views.post_req, name='post_add'),
+    path('<int:year>/<int:month>/<int:day>/<slug:post>/',
+         views.post_detail, name='post_detail'),
     path('<int:post_id>/share/', views.post_share, name='post_share'),
     path('tag/<slug:tag_slug>/', views.post_list, name='post_list_by_tag'),
     path('feed/', LatestPostsFeed(), name='post_feed'),
