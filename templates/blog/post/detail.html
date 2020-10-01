@@ -1,4 +1,5 @@
 {% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
 {% load blog_tags %}
 {% block title %}
     {{ post.title }}
@@ -50,10 +51,14 @@
         <h2>Your comment has been added.</h2>
     {% else %}
         <h2>Add a new comment</h2>
-        <form method="post">
-            {{ comment_form.as_p }}
-            {% csrf_token %}
-            <p><input type="submit" value="Add comment"></p>
-        </form>
+        <div class="row">
+            <div class="col-6">
+                <form method="post">
+                    {{ comment_form|crispy }}
+                    {% csrf_token %}
+                    <p><input class="btn btn-outline-info" type="submit" value="Add comment"></p>
+                </form>
+            </div>
+        </div>
     {% endif %}
 {% endblock %}

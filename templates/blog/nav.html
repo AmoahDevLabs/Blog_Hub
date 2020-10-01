@@ -37,11 +37,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <body>
 
 <div class="navbar">
-  <a class="active" href="{% url 'blog:post_list' %}"><i class="fa fa-fw fa-home"></i> Home</a>
-  <a href="#"><i class="fa fa-fw "></i> Trends</a>
-  <a href="{% url 'blog:post_search' %}"><i class="fa fa-fw fa-search"></i> Search</a>
-  <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
-  <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
+    <a class="active" href="{% url 'blog:post_list' %}"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a href="#"><i class="fa fa-fw "></i> Trends</a>
+    <a href="{% url 'blog:post_search' %}"><i class="fa fa-fw fa-search"></i> Search</a>
+    <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+    <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
+    <a href="{% url 'register' %}"><i class="fa fa-user-plus"></i> Register</a>
 </div>
 
 </body>
