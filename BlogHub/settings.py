@@ -154,6 +154,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 
+# Media file
+MEDIA_ROOT = (BASE_DIR / 'media')
+MEDIA_URL = '/media/'
+
+
 # Crispy forms config
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
