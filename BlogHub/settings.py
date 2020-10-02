@@ -154,5 +154,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 
+# Crispy forms config
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+
+# Login Redirect config
+LOGIN_REDIRECT_URL = 'blog:post_list'
+LOGIN_URL = 'login'
