@@ -1,0 +1,19 @@
+{% extends "blog/base.html" %}
+{% block title %}Create A New Post{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Blog Post</legend>
+                <form method="post" enctype="multipart/form-data" novalidate>
+                {{ form|crispy }}
+                </form>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info btn-outline-custom" type="submit">Post</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,5 +1,5 @@
 body {
-    background: #fafafa;
+    background: #f1f9fb;
     color: #333333;
     margin-top: 0;
     padding: 0;
@@ -10,6 +10,11 @@ a {
     color: cornflowerblue;
     text-decoration:none;
 }
+a:hover{
+    color: #4CAF50;
+    text-decoration: none;
+}
+
 .account-img {
   height: 125px;
   width: 125px;
@@ -38,12 +43,12 @@ h2 {
 }
 
 #sidebar {
-    float:right;
-    width:30%;
-    padding:10px;
     background: #21618c;
     color: white;
-    height:100%;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border-style: groove;
+    margin-bottom: 20px;
 }
 
 p.date {
@@ -116,4 +121,11 @@ input[type=submit] {
     color: green;
     border: 1px solid green;
     border-radius: 3px;
+}
+
+.list-group-custom .list-group-item {
+  background-color: #f1f9fb;
+  border-top: 1px solid #0091b5;
+  border-left-color: #fff;
+  border-right-color: #fff;
 }

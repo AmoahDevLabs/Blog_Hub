@@ -4,6 +4,7 @@ from django.core.mail import send_mail
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
 from django.core.paginator import Paginator, EmptyPage, \
     PageNotAnInteger
+from django.views.generic import CreateView
 from taggit.models import Tag
 from django.db.models import Count
 from .models import Post, Comment
@@ -33,25 +34,29 @@ def post_list(request, tag_slug=None):
                    'tag': tag})
 
 
-def post_req(request):
-    submitted = False
-    if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False)
-            try:
-                post.author = request.user
-            except Exception:
-                pass
-            post.save()
-            return HttpResponseRedirect('/post_add/?submitted=True')
-    else:
-        form = PostForm
-        if 'submitted' in request.GET:
-            submitted = True
-    return render(request, 'blog/post/add_post.html',
-                  {'form': form,
-                   'submitted': submitted})
+# def post_req(request):
+#     submitted = False
+#     if request.method == 'POST':
+#         form = PostForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             post = form.save(commit=False)
+#             try:
+#                 post.author = request.user
+#             except Exception:
+#                 pass
+#             post.save()
+#             return HttpResponseRedirect('/post_add/?submitted=True')
+#     else:
+#         form = PostForm
+#         if 'submitted' in request.GET:
+#             submitted = True
+#     return render(request, 'blog/post/post_form.html',
+#                   {'form': form,
+#                    'submitted': submitted})
+class PostCreateView(CreateView):
+    model = Post
+    fields = ['title', 'body', 'tags', 'status']
+    template_name = 'blog/post/post_form.html'
 
 
 def post_detail(request, year, month, day, post):
