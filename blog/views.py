@@ -58,6 +58,10 @@ class PostCreateView(CreateView):
     fields = ['title', 'body', 'tags', 'status']
     template_name = 'blog/post/post_form.html'
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super(PostCreateView, self).form_valid(form)
+
 
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post,

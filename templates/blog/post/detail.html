@@ -40,7 +40,11 @@
 
                 {% with comments.count as total_comments %}
                     <h3>
-                        {{ total_comments }} comment{{ total_comments|pluralize }}
+                        {% if total_comments <= 0 %}
+                            {{ total_comments }} comment
+                        {% else %}
+                            {{ total_comments }} comment{{ total_comments|pluralize }}
+                        {% endif %}
                     </h3>
                 {% endwith %}
 
