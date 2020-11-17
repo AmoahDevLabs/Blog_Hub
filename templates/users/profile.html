@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Profile{% endblock %}
+{% block content %}
+    <div class="content-section">
+        <div class="media">
+            <img src="{{ page_user.user.profile.image.url }}" alt="" class="rounded-circle account-img">
+            <div class="media-body">
+                <h1 class="account-heading">{{ page_user.user.first_name }} {{ page_user.user.last_name }}</h1>
+                <p class="text-secondary">{{ page_user.user.email }}</p>
+                <p class="small text-muted">
+                    {% if page_user.website_url %}
+                        <a href="{{ page_user.website_url }}">Website</a>
+                    {% endif %}
+                    {% if page_user.website_url %}
+                        | <a href="{{ page_user.facebook_url }}">Facebook</a>
+                    {% endif %}
+                    {% if page_user.website_url %}
+                        | <a href="{{ page_user.twitter_url }}">Twitter</a>
+                    {% endif %}
+                    {% if page_user.website_url %}
+                        | <a href="{{ page_user.instagram_url }}">Instagram</a>
+                    {% endif %}
+                </p>
+                <p class="card-text">
+                    {{ page_user.bio }}
+                </p>
+            </div>
+        </div>
+        <legend class="border-bottom mb-4">Profile Info</legend>
+        <a class="btn btn-outline-info" href="{% url 'blog:user_posts' page_user.user.username %}">
+            View {{ page_user.user.first_name }} {{ page_user.user.last_name }}'s Posts
+        </a>
+    </div>
+{% endblock %}

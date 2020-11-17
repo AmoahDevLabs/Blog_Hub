@@ -1,0 +1,44 @@
+{% extends 'blog/base.html' %}
+{% block title %}
+    {{ view.kwargs.username }} - posts
+{% endblock %}
+{% load blog_tags %}
+{% block content %}
+    <h1 class="">{{ view.kwargs.username }}'s posts - {{ page_obj.paginator.count }}</h1>
+    {% for post in posts%}
+        <article class="media content-section">
+            <div class="media">
+                <a href="{% url 'profile' post.author.profile.id %}" class="mr-2">
+                    <img src="{{ post.author.profile.image.url }}"
+                     class="rounded-circle article-img mr-3" alt="{{ post.author }}" height="64" width="64">
+                </a>
+                <div class="media-body">
+                    <h2 class="mt-0">
+                        <a href="{{ post.get_absolute_url }}">
+                            {{ post.title }}
+                        </a>
+                    </h2>
+
+                    <p class="tags">
+                        Tags:
+                        {% for tag in post.tags.all %}
+                            <a href="{% url 'blog:post_list_by_tag' tag.slug %}" class="badge badge-pill badge-primary">
+                                {{ tag.name }}
+                            </a>
+                            {% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+
+                    <p class="date">
+                        {{ post.publish }} by <a href="{% url 'profile' post.author.profile.id %}"
+                                                 class="mr-2">{{ post.author }}</a>
+                    </p>
+                    {{ post.body|markdown|truncatewords_html:30 }}
+                </div>
+            </div>
+        </article>
+    {% endfor%}
+
+    {% include 'blog/pagination.html' %}
+
+{% endblock %}
