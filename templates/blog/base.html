@@ -5,7 +5,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>{% block title %}{% endblock %}</title>
+        <title>
+            {% block title %}{{ title }}{% endblock %}
+        </title>
             <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -36,7 +38,7 @@
                 <div class="col-md-4">
                     <div id="sidebar">
                         <h3 class="text-center">Trends</h3>
-                        <p>This blog has a total of <strong>{% total_posts %}</strong> posts so far.</p>
+                        <p>BlogHub has a total of <strong>{% total_posts %}</strong> posts so far.</p>
                         <ul class="list-group list-group-custom">
                             <li class="list-group-item list-group-item-light">
                                 <h3>Latest posts</h3>

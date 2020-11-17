@@ -18,8 +18,7 @@ class Post(models.Model):
         ('published', 'Published'),
     )
     title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250,
-                            unique_for_date='publish')
+    slug = models.SlugField(max_length=250, unique_for_date='created', null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                related_name='blog_posts')
     header_image = models.ImageField(null=True, blank=True, upload_to='post')
@@ -28,7 +27,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10,
-                              choices=STATUS_CHOICES, default='draft')
+                              choices=STATUS_CHOICES, default='published')
 
     objects = models.Manager()  # Default manager
     published = PublishedManager()  # Custom manager
@@ -42,9 +41,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog:post_detail',
-                       args=[self.publish.year,
-                             self.publish.month,
-                             self.publish.day, self.slug])
+                       kwargs={'pk': self.pk, 'slug': self.slug})
 
     def save(self, *args, **kwargs):  # new
         if not self.slug:

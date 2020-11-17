@@ -9,3 +9,13 @@ class PostListView(ListView):
 
 
 {% include 'blog/pagination.html' with page=page_obj %}
+
+class UserPostListView(ListView):
+    queryset = Post.published.all()
+    context_object_name = 'posts'
+    template_name = 'user/user_posts.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Post.published.filter(author=user).order_by('-publish')

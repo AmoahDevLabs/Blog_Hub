@@ -7,7 +7,8 @@ body {
 }
 
 a {
-    color: cornflowerblue;
+    /*color: cornflowerblue;*/
+    /*color: deeppink;*/
     text-decoration:none;
 }
 a:hover{
@@ -59,10 +60,10 @@ p.date {
 }
 
 /* pagination */
-.pagination {
-    margin:40px 0;
-    font-weight:bold;
-}
+/*.pagination {*/
+/*    margin:40px 0;*/
+/*    font-weight:bold;*/
+/*}*/
 
 /* forms */
 label {
@@ -106,9 +107,8 @@ input[type=submit] {
 #footer {
     text-align: center;
     font-size: 0.8em;
-    margin-top: 5px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    /*position: fixed;*/
+    /*top: 10px;*/
     background-color: #21618c;
     border-top: thin solid #21618c;
     clear: both;
@@ -128,4 +128,8 @@ input[type=submit] {
   border-top: 1px solid #0091b5;
   border-left-color: #fff;
   border-right-color: #fff;
+}
+
+.btn-custom .btn .btn-outline-info {
+    color: #21618c;
 }
