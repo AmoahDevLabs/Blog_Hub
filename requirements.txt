@@ -3,6 +3,6 @@ Django==3.1.1
 django-crispy-forms==1.11.2
 django-taggit==1.4.0
 Markdown==3.3.4
-Pillow==8.2.0
+Pillow==10.0.1
 pytz==2020.1
 sqlparse==0.3.1
